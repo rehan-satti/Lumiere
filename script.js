@@ -191,8 +191,8 @@ if (loader) {
         setTimeout(() => {
           loader.style.display = "none";
           sessionStorage.setItem("lumiereLoaderShown", "true");
-        }, 300);
-      }, 600);
+        }, 1000);
+      }, 3000);
     });
   }
 }
