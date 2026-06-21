@@ -162,45 +162,7 @@ const closeCartPanel = () => {
 
 
 // ==================== LOADING SCREEN ====================
-document.addEventListener("DOMContentLoaded", () => {
-  const loader = document.getElementById("loader");
 
-  if (!loader) return;
-
-  const loaderShown = sessionStorage.getItem("lumiereLoaderShown");
-
-  const isHomePage =
-    location.pathname.endsWith("index.html") ||
-    location.pathname === "/" ||
-    location.pathname.endsWith("/");
-
-  const isReload =
-    performance.getEntriesByType("navigation")[0]?.type === "reload";
-
-  // 🚨 FORCE HIDE if not home page
-  if (!isHomePage) {
-    loader.style.display = "none";
-    return;
-  }
-
-  // 🚨 If already shown before (and not reload) → hide instantly
-  if (loaderShown && !isReload) {
-    loader.style.display = "none";
-    return;
-  }
-
-  // ✅ Otherwise show loader then hide
-  window.addEventListener("load", () => {
-    setTimeout(() => {
-      loader.style.opacity = "0";
-
-      setTimeout(() => {
-        loader.style.display = "none";
-        sessionStorage.setItem("lumiereLoaderShown", "true");
-      }, 500);
-    }, 1500);
-  });
-});
 // ==================== CUSTOM CURSOR ====================
 const cursorEl = document.querySelector('.cursor');
 const followerEl = document.querySelector('.cursor-follower');
