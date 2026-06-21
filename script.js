@@ -159,22 +159,36 @@ const closeCartPanel = () => {
 };
 
 // ==================== LOADING SCREEN ====================
-document.addEventListener("DOMContentLoaded", () => {
-  const loader = document.getElementById("loader");
 
-  if (!loader) return;
+const loader = document.getElementById('loader');
+const loaderShown = sessionStorage.getItem('lumiereLoaderShown');
+const navEntries = performance.getEntriesByType('navigation');
+const isReload = navEntries.length > 0 && navEntries[0].type === 'reload';
+const isHomePage = window.location.pathname.endsWith('index.html') || window.location.pathname === '/' || window.location.pathname.endsWith('Restaurant/');
 
-  window.addEventListener("load", () => {
-    setTimeout(() => {
-      loader.style.opacity = "0";
+// Immediately hide loader if not on the home page OR if it's already been shown and isn't a refresh
+if (loader) {
+    if (!isHomePage || (loaderShown && !isReload)) {
+        loader.style.display = 'none';
+        loader.style.transition = 'none';
+    }
+}
 
-      setTimeout(() => {
-        loader.style.display = "none";
-      }, 800);
-
-    }, 1500);
-  });
+window.addEventListener('load', () => {
+    if (loader) {
+        // Show animation ONLY on home page for first-time session visit OR refresh
+        if (isHomePage && (!loaderShown || isReload)) {
+            setTimeout(() => {
+                loader.style.opacity = '0';
+                setTimeout(() => loader.style.display = 'none', 500);
+            }, 1500);
+        }
+    }
+    sessionStorage.setItem('lumiereLoaderShown', 'true');
 });
+
+
+
 // ==================== CUSTOM CURSOR ====================
 const cursorEl = document.querySelector('.cursor');
 const followerEl = document.querySelector('.cursor-follower');
