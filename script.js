@@ -159,42 +159,22 @@ const closeCartPanel = () => {
 };
 
 // ==================== LOADING SCREEN ====================
-const loader = document.getElementById("loader");
+const window.addEventListener("load", () => {
+  const loader = document.getElementById("loader");
 
-const nav = performance.getEntriesByType("navigation")[0];
-const isReload = nav?.type === "reload";
+  if (!loader) return;
 
-const loaderShown = sessionStorage.getItem("lumiereLoaderShown");
+  // start fade out after 2 seconds
+  setTimeout(() => {
+    loader.style.opacity = "0";
 
-const isHome =
-  location.pathname === "/" ||
-  location.pathname.includes("index.html");
-
-if (!loader) return;
-
-// ❌ not home → hide instantly
-if (!isHome) {
-  loader.style.display = "none";
-}
-
-// ❌ already shown → skip
-else if (loaderShown && !isReload) {
-  loader.style.display = "none";
-}
-
-// ✅ show loader
-else {
-  window.addEventListener("load", () => {
+    // fully remove after fade animation
     setTimeout(() => {
-      loader.style.opacity = "0";
+      loader.style.display = "none";
+    }, 800);
 
-      setTimeout(() => {
-        loader.style.display = "none";
-        sessionStorage.setItem("lumiereLoaderShown", "true");
-      }, 800);
-    }, 2000); // 👈 your 2 sec delay is fine here
-  });
-}
+  }, 2000);
+});
 // ==================== CUSTOM CURSOR ====================
 const cursorEl = document.querySelector('.cursor');
 const followerEl = document.querySelector('.cursor-follower');
