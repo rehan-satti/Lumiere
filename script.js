@@ -181,7 +181,7 @@ window.addEventListener('load', () => {
             setTimeout(() => {
                 loader.style.opacity = '0';
                 setTimeout(() => loader.style.display = 'none', 900);
-            }, 4000);
+            }, 3600);
         }
     }
     sessionStorage.setItem('lumiereLoaderShown', 'true');
